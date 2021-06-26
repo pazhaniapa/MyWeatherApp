@@ -6,12 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import com.palmah.myweatherapp.R
 import com.palmah.myweatherapp.databinding.ActivityMainBinding
-import com.palmah.myweatherapp.ui.fragment.FirstFragment
+import com.palmah.myweatherapp.ui.fragment.WeatherInfoFragment
 
  class MainActivity : AppCompatActivity() {
 
@@ -27,7 +26,7 @@ import com.palmah.myweatherapp.ui.fragment.FirstFragment
         setSupportActionBar(binding.toolbar)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, FirstFragment.newInstance())
+            .replace(R.id.fragment_container, WeatherInfoFragment.newInstance())
             .commitNow()
 
         binding.fab.setOnClickListener { view ->

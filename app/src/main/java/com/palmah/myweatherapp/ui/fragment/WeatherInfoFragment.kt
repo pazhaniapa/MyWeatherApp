@@ -1,25 +1,30 @@
 package com.palmah.myweatherapp.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.palmah.myweatherapp.R
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.palmah.myweatherapp.databinding.FragmentWeatherInfoBinding
 import com.palmah.myweatherapp.entity.Weather
+import com.palmah.myweatherapp.utility.Constants.TAG
+import com.palmah.myweatherapp.viewmodel.WeatherInfoViewModel
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment() {
+class WeatherInfoFragment : Fragment() {
 
     companion object {
-        fun newInstance() = FirstFragment()
+        fun newInstance() = WeatherInfoFragment()
     }
 
     private var _binding: FragmentWeatherInfoBinding? = null
+
+    private lateinit var viewModel: WeatherInfoViewModel
 
     private var weather : Weather? = null
 
@@ -40,14 +45,24 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
+        viewModel = ViewModelProvider(this).get(WeatherInfoViewModel::class.java)
 
+        binding.lifecycleOwner = this
+        binding.weatherInfoViewModel = viewModel
+
+        binding.buttonFirst.setOnClickListener {
+            getCurrentWeatherByCity("Mumbai")
         }
 
-        weather = Weather("Trichy",38.4,33.6,38.9)
+        getCurrentWeatherByCity("Madurai")
+    }
 
-        binding.weather = weather
+    private fun getCurrentWeatherByCity(cityName: String){
+        viewModel.getCurrentWeatherByCity(cityName)
 
+        viewModel.weatherMutableLiveData.observe(this,  Observer {
+            Log.d(TAG,"Weather mutable livedata observer called: ${it.toString()}")
+        })
     }
 
     override fun onDestroyView() {
