@@ -8,4 +8,8 @@ interface IWeatherRepo {
     suspend fun getCurrentWeatherByCity(city : String) : Deferred<Weather?>
 
     suspend fun saveWeatherInfo(weatherInfo: Weather)
+
+    suspend fun getFavoriteCitiesWeatherInfoList() : Deferred<ArrayList<Weather>>
+
+    suspend fun getAllCities() : Deferred<ArrayList<String>>
 }

@@ -51,10 +51,14 @@ class WeatherInfoFragment : Fragment() {
         binding.weatherInfoViewModel = viewModel
 
         binding.buttonFirst.setOnClickListener {
-            getCurrentWeatherByCity("Mumbai")
+            getCurrentWeatherByCity("Madurai")
         }
 
-        getCurrentWeatherByCity("Madurai")
+        getCurrentWeatherByCity("Trichy")
+
+        getFavoriteCitiesWeatherInfoList()
+
+        getAllCities()
     }
 
     private fun getCurrentWeatherByCity(cityName: String){
@@ -63,6 +67,15 @@ class WeatherInfoFragment : Fragment() {
         viewModel.weatherMutableLiveData.observe(this,  Observer {
             Log.d(TAG,"Weather mutable livedata observer called: ${it.toString()}")
         })
+    }
+
+    private fun getFavoriteCitiesWeatherInfoList(){
+        viewModel.getFavoriteCitiesWeatherInfoList()
+
+    }
+
+    private fun getAllCities(){
+        viewModel.getAllCities()
     }
 
     override fun onDestroyView() {

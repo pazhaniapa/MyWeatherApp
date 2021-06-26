@@ -9,6 +9,13 @@ object OpenWeatherConstants {
     val TEMP_MAX = "temp_max"
     val NAME = "name"
     val ID = "id"
+    val PRESSURE = "pressure"
+    val HUMIDITY = "humidity"
+    val WEATHER_DESCRIPTION = "description"
+    val WIND_SPEED = "speed"
+    val WIND_DEGREE = "deg"
+    val SYSTEM = "sys"
+    val COUNTRY = "country"
 
 
 }

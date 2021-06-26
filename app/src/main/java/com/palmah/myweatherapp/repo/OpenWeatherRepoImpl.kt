@@ -41,14 +41,19 @@ class OpenWeatherRepoImpl : IWeatherRepo {
                         continuation.resume(null)
                     }
                 })
-
             }
-
-
         }
     }
 
     override suspend fun saveWeatherInfo(weatherInfo: Weather) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getFavoriteCitiesWeatherInfoList(): Deferred<ArrayList<Weather>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getAllCities(): Deferred<ArrayList<String>> {
         TODO("Not yet implemented")
     }
 }

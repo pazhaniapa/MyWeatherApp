@@ -28,5 +28,21 @@ class WeatherInfoViewModel : ViewModel() {
         }
     }
 
+    fun getFavoriteCitiesWeatherInfoList(){
+        viewModelScope.launch {
+            val favoriteCitiesWeatherInfoList = weatherInfoUseCase?.getFavoriteCitiesWeatherInfoList()
+            Log.d(TAG,"Favorite Cities WetherInfo List: ${favoriteCitiesWeatherInfoList.toString()}")
+        }
+
+    }
+
+    fun getAllCities(){
+        viewModelScope.launch {
+            val cityList = weatherInfoUseCase?.getAllCities()
+            Log.d(TAG,"Cities: ${cityList}")
+
+        }
+    }
+
 
 }
