@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "265925205699",
+    "firebase_url": "https://speechrecognition-262709.firebaseio.com",
+    "project_id": "speechrecognition-262709",
+    "storage_bucket": "speechrecognition-262709.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:265925205699:android:a4ee26eb494c7dd2794c76",
+        "android_client_info": {
+          "package_name": "com.palmah.myweatherapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "265925205699-0v7outov9ko08f5qqm6b7laj8r9202ug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD86TfEZZmg2uk57U-Ei1K00DUB2dvcPK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "265925205699-0v7outov9ko08f5qqm6b7laj8r9202ug.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:265925205699:android:e43a1d5cede536e5794c76",
+        "android_client_info": {
+          "package_name": "com.palmah.prjects.imageclassificationsample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "265925205699-0v7outov9ko08f5qqm6b7laj8r9202ug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD86TfEZZmg2uk57U-Ei1K00DUB2dvcPK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "265925205699-0v7outov9ko08f5qqm6b7laj8r9202ug.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:265925205699:android:c0fd37b2eb172c5c794c76",
+        "android_client_info": {
+          "package_name": "com.test.project.speechrecognitiontask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "265925205699-0v7outov9ko08f5qqm6b7laj8r9202ug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD86TfEZZmg2uk57U-Ei1K00DUB2dvcPK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "265925205699-0v7outov9ko08f5qqm6b7laj8r9202ug.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

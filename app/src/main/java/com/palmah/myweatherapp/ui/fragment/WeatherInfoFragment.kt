@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.palmah.myweatherapp.R
-import com.palmah.myweatherapp.databinding.FragmentFirstBinding
+import com.palmah.myweatherapp.databinding.FragmentWeatherInfoBinding
 import com.palmah.myweatherapp.entity.Weather
 
 /**
@@ -19,7 +19,7 @@ class FirstFragment : Fragment() {
         fun newInstance() = FirstFragment()
     }
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentWeatherInfoBinding? = null
 
     private var weather : Weather? = null
 
@@ -32,7 +32,7 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentFirstBinding.inflate(inflater,container,false)
+        _binding = FragmentWeatherInfoBinding.inflate(inflater,container,false)
         return binding.root
 
     }
