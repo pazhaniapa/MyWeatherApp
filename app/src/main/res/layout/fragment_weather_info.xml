@@ -3,8 +3,8 @@
     <data>
 
         <variable
-            name="weather"
-            type="com.palmah.myweatherapp.entity.Weather" />
+            name="weatherInfoViewModel"
+            type="com.palmah.myweatherapp.viewmodel.WeatherInfoViewModel" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,13 +12,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.FirstFragment">
+    tools:context=".ui.fragment.WeatherInfoFragment">
 
     <TextView
         android:id="@+id/textview_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{weather.cityName}"
+        android:text="@{weatherInfoViewModel.weatherMutableLiveData.cityName}"
         app:layout_constraintBottom_toTopOf="@id/button_first"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
