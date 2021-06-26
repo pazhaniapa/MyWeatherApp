@@ -1,4 +1,4 @@
-package com.palmah.myweatherapp.ui.activity
+ package com.palmah.myweatherapp.ui.activity
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -11,8 +11,9 @@ import android.view.Menu
 import android.view.MenuItem
 import com.palmah.myweatherapp.R
 import com.palmah.myweatherapp.databinding.ActivityMainBinding
+import com.palmah.myweatherapp.ui.fragment.FirstFragment
 
-class MainActivity : AppCompatActivity() {
+ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -25,9 +26,9 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, FirstFragment.newInstance())
+            .commitNow()
 
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

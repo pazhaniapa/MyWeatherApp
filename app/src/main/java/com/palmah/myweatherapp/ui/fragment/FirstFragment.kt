@@ -8,13 +8,20 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.palmah.myweatherapp.R
 import com.palmah.myweatherapp.databinding.FragmentFirstBinding
+import com.palmah.myweatherapp.entity.Weather
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class FirstFragment : Fragment() {
 
+    companion object {
+        fun newInstance() = FirstFragment()
+    }
+
     private var _binding: FragmentFirstBinding? = null
+
+    private var weather : Weather? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,7 +32,7 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentFirstBinding.inflate(inflater,container,false)
         return binding.root
 
     }
@@ -34,12 +41,16 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+
         }
+
+        weather = Weather("Trichy",38.4,33.6,38.9)
+
+        binding.weather = weather
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-}
+    }}
