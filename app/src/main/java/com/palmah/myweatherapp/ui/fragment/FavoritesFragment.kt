@@ -31,16 +31,13 @@ class FavoritesFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_favorites, container, false)
 
+        //initialising and setting up weather list recycler view
         weatherListRecyclerView = view.findViewById(R.id.fav_recycler_view)
         weatherListRecyclerAdapter = FavoriteCityWeatherListAdapter(requireActivity().application,requireActivity(),weatherList)
         val layoutManager = LinearLayoutManager(requireActivity())
         weatherListRecyclerView.layoutManager = layoutManager
         weatherListRecyclerView.itemAnimator = DefaultItemAnimator()
         weatherListRecyclerView.adapter = weatherListRecyclerAdapter
-
-        weatherListRecyclerView.setOnClickListener {
-
-        }
 
         return view
     }
@@ -52,6 +49,10 @@ class FavoritesFragment : Fragment() {
         getFavoriteCitiesWeatherInfoList()
     }
 
+    /**
+     * This method fetches the list of weather data by city name which has been marked as favorite by user.
+     * Fetches from firestore cache.
+     */
     private fun getFavoriteCitiesWeatherInfoList(){
         viewModel.getFavoriteCitiesWeatherInfoList()
 
@@ -61,7 +62,6 @@ class FavoritesFragment : Fragment() {
                 weatherList.addAll(it)
                 weatherListRecyclerAdapter.notifyDataSetChanged()
             }
-
         })
     }
 

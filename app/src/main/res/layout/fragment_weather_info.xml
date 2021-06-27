@@ -32,15 +32,6 @@
                 android:hint="@string/search_bar_text"
                 android:layout_weight="1" />
 
-            <!--   <ImageView
-                   android:id="@+id/searchButton"
-                   android:layout_width="0dp"
-                   android:layout_height="wrap_content"
-                   style="@style/Widget.AppCompat.ActionButton"
-                   android:layout_margin="5dp"
-                   android:layout_weight="0.2"
-                   android:src="@drawable/ic_baseline_search_24"/> !-->
-
         </LinearLayout>
 
         <RelativeLayout

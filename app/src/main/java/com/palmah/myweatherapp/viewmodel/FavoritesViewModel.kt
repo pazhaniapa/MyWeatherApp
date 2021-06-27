@@ -21,6 +21,9 @@ class FavoritesViewModel (application: Application) : AndroidViewModel(applicati
         weatherInfoUseCase = WeatherInfoUseCase()
     }
 
+    /**
+     * This methods fetches the list of weather information of favorite cities.
+     */
     fun getFavoriteCitiesWeatherInfoList(){
         viewModelScope.launch {
             val favoriteCitiesWeatherInfoList = weatherInfoUseCase?.getFavoriteCitiesWeatherInfoList()
@@ -32,6 +35,10 @@ class FavoritesViewModel (application: Application) : AndroidViewModel(applicati
         }
     }
 
+    /**
+     * @param weather - The weather object to be displayed.
+     * This methods formats the weather data and populates the UI parameters which is required for UI binding.
+     */
     fun formatWeatherObject(weather : Weather) : Weather{
         return WeatherUtility.formatWeatherObject(weather,androidApplication)
     }

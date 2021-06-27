@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
+    android:weightSum="1"
     android:orientation="horizontal">
 
     <TextView
@@ -10,7 +11,8 @@
         android:layout_marginRight="20dp"
         android:text="Humidity"
         android:textSize="16sp"
-        android:layout_width="wrap_content"
+        android:layout_weight="0.3"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"/>
 
     <TextView
@@ -18,7 +20,8 @@
         android:layout_marginLeft="20dp"
         android:text="71%"
         android:textSize="16sp"
-        android:layout_width="wrap_content"
+        android:layout_weight="0.7"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>

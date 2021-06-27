@@ -29,6 +29,11 @@ import java.util.*
 
 object WeatherUtility {
 
+    /**
+     * @param weatherResponse - The json response from API server.
+     * This method parse the json and convert it to Weather data class.
+     * Returns Weather object constructed from the given json response.
+     */
     fun getWeatherFromOpenWeatherResponse(weatherResponse : String): Weather?
     {
         try {
@@ -61,6 +66,12 @@ object WeatherUtility {
         }
     }
 
+    /**
+     * @param weather - The weather object to be displayed.
+     * @param androidApplication - Android application
+     * This methods formats the weather data and populates the UI parameters which is required for UI binding.
+     * Returns formatted weather object.
+     */
     fun formatWeatherObject(weather : Weather, androidApplication : Application) : Weather{
         //format time
         val sdf = SimpleDateFormat("dd-MM-yy HH:mm")
