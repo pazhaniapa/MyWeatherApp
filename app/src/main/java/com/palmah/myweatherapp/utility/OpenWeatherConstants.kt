@@ -14,6 +14,7 @@ object OpenWeatherConstants {
     val WEATHER_DESCRIPTION = "description"
     val WIND_SPEED = "speed"
     val WIND_DEGREE = "deg"
+    val VISIBILITY = "visibility"
     val SYSTEM = "sys"
     val COUNTRY = "country"
 

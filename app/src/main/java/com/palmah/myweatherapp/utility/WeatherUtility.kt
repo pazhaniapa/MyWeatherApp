@@ -13,6 +13,7 @@ import com.palmah.myweatherapp.utility.OpenWeatherConstants.SYSTEM
 import com.palmah.myweatherapp.utility.OpenWeatherConstants.TEMP
 import com.palmah.myweatherapp.utility.OpenWeatherConstants.TEMP_MAX
 import com.palmah.myweatherapp.utility.OpenWeatherConstants.TEMP_MIN
+import com.palmah.myweatherapp.utility.OpenWeatherConstants.VISIBILITY
 import com.palmah.myweatherapp.utility.OpenWeatherConstants.WEATHER
 import com.palmah.myweatherapp.utility.OpenWeatherConstants.WEATHER_DESCRIPTION
 import com.palmah.myweatherapp.utility.OpenWeatherConstants.WIND
@@ -42,9 +43,10 @@ object WeatherUtility {
             val weatherDescription = weatherJsonObject.getString(WEATHER_DESCRIPTION)
             val windSpeed = windJsonObject.getDouble(WIND_SPEED)
             val windDegree = windJsonObject.getInt(WIND_DEGREE)
+            val visibility = weatherResponseJson.getInt(VISIBILITY)
             val country = systemJsonObject.getString(COUNTRY)
 
-            return Weather(cityName,cityId,temp,minTemp,maxTemp,pressure,humidity,weatherDescription,windSpeed,windDegree,country,
+            return Weather(cityName,cityId,temp,minTemp,maxTemp,pressure,humidity,weatherDescription,windSpeed,windDegree,visibility,country,
                            System.currentTimeMillis(),false)
 
         }catch (e : Exception){

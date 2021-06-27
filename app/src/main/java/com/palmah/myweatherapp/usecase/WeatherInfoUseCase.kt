@@ -4,6 +4,9 @@ import com.palmah.myweatherapp.entity.Weather
 import com.palmah.myweatherapp.repo.FirestoreWeatherRepoImpl
 import com.palmah.myweatherapp.repo.IWeatherRepo
 import com.palmah.myweatherapp.repo.OpenWeatherRepoImpl
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class WeatherInfoUseCase {
 
@@ -37,4 +40,6 @@ class WeatherInfoUseCase {
         val cityList = firestoreRepo.getAllCities().await()
         return cityList
     }
+
+
 }
