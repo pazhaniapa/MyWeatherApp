@@ -71,7 +71,6 @@ class WeatherInfoFragment : Fragment() {
         binding.weatherDetailsListView.adapter = weatherDetailsListAdapter
 
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,10 +80,6 @@ class WeatherInfoFragment : Fragment() {
 
         binding.lifecycleOwner = this
         binding.weatherInfoViewModel = viewModel
-
-        /*binding.searchButton.setOnClickListener {
-            getCurrentWeatherByCity(binding.cityAutoCompleteTextView.text.toString())
-        }*/
 
         binding.favoriteButton.setOnClickListener {
             handleAddToFavorites()
@@ -108,10 +103,17 @@ class WeatherInfoFragment : Fragment() {
         getAllCities()
     }
 
+    /**
+     *  @param cityName - name of the city for which we need to fetch the weather data
+     *  This method fetches the weather data from server if network is available otherwise fetch data from firestore if available.
+     */
     private fun getCurrentWeatherByCity(cityName: String){
         viewModel.getCurrentWeatherByCity(cityName,AndroidUtility.isNetworkAvailable(requireContext()))
     }
 
+    /**
+     * This method observes the weather data in viewmodel and updates the weather info in UI.
+     */
     private fun observerWeatherData(){
         viewModel.weatherMutableLiveData.observe(this,  Observer {
             Log.d(TAG,"Weather mutable livedata observer called: ${it.toString()}")
@@ -122,20 +124,24 @@ class WeatherInfoFragment : Fragment() {
         })
     }
 
-    private fun getFavoriteCitiesWeatherInfoList(){
-        viewModel.getFavoriteCitiesWeatherInfoList()
-    }
-
+    /**
+     * This method fetches all the cached citi names from firestore.
+     * The city list fetched is used as input to cityAutoCompleteTextView.
+     */
     private fun getAllCities(){
         viewModel.getAllCities()
         viewModel.cityListMutableLiveData.observe(this, Observer { cityList->
             cityArrayList.clear()
             cityArrayList.addAll(cityList)
             cityListAdapter?.notifyDataSetChanged()
-
         })
     }
 
+    /**
+     * @param weather - weather object of the searched city.
+     * This method prepares the weather data to displayed in UI.
+     * This methods constructs data for weatherDetailsListAdapter.
+     */
     private fun buildWeatherDetailsListData(weather : Weather){
         var weatherDetailsList = ArrayList<Map<String,String>>()
 
@@ -164,6 +170,9 @@ class WeatherInfoFragment : Fragment() {
         weatherDetailsMapList.addAll(weatherDetailsList)
     }
 
+    /**
+     * This method makes a copy of the weather object in viewmodel and invert the favorite property value and save to firestore.
+     */
     private fun handleAddToFavorites(){
         viewModel.weatherMutableLiveData.value?.let {
             var isFavorite = it.favorite

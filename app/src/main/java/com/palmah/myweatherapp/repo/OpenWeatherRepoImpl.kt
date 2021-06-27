@@ -23,6 +23,11 @@ class OpenWeatherRepoImpl : IWeatherRepo {
 
     private var retrofit : Retrofit = RetroFitHelper().initializeRetrofit()
 
+    /**
+     * @param city - The name of the city for which we need to fetch the weather information.
+     * This method fetches the weather information from openweathermap API.
+     * Returns null if any error occurs.
+     */
     override suspend fun getCurrentWeatherByCity(city: String): Deferred<Weather?> {
         return CoroutineScope(Dispatchers.IO).async {
              suspendCoroutine { continuation ->

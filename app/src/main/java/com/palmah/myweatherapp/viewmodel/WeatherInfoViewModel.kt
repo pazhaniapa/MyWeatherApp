@@ -32,6 +32,11 @@ class WeatherInfoViewModel(application: Application) : AndroidViewModel(applicat
         isErrorOccuredMutableLiveData.postValue(true)
     }
 
+    /**
+     * @param city - name of the city for which we need to fetch the weather data.
+     * @param isNetworkAvailable - true if network is available otherwise false.
+     * This method fetches the weather data from server if network is available otherwise fetch data from firestore if available.
+     */
     fun getCurrentWeatherByCity(city : String, isNetworkAvailable : Boolean){
         viewModelScope.launch {
             val currentWeatherInfo = weatherInfoUseCase?.getCurrentWeatherByCity(city,isNetworkAvailable)
@@ -50,13 +55,9 @@ class WeatherInfoViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
-    fun getFavoriteCitiesWeatherInfoList(){
-        viewModelScope.launch {
-            val favoriteCitiesWeatherInfoList = weatherInfoUseCase?.getFavoriteCitiesWeatherInfoList()
-            Log.d(TAG,"Favorite Cities WetherInfo List: ${favoriteCitiesWeatherInfoList.toString()}")
-        }
-    }
-
+    /**
+     * This method fetches the list of all cities from firstore that user searched earlier.
+     */
     fun getAllCities(){
         viewModelScope.launch {
             val cityList = weatherInfoUseCase?.getAllCities()
@@ -65,16 +66,21 @@ class WeatherInfoViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    /**
+     * @param weatherInfo - weather data which is needed to cache in firestore.
+     * This method updates the favorite value and saves the weather information to firestore.
+     */
     fun saveToFavorites(weather: Weather){
         viewModelScope.launch {
             weatherInfoUseCase?.saveWeatherInfoInFirestore(weather)
         }
     }
 
+    /**
+     * @param weather - The weather object to be displayed.
+     * This methods formats the weather data and populates the UI parameters which is required for UI binding.
+     */
     fun formatWeatherObject(weather : Weather) : Weather{
         return WeatherUtility.formatWeatherObject(weather,androidApplication)
     }
-
-
-
 }
