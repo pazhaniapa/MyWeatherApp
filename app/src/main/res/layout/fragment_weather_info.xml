@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="weatherInfoViewModel"
             type="com.palmah.myweatherapp.viewmodel.WeatherInfoViewModel" />
@@ -15,43 +15,45 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragment.WeatherInfoFragment">
 
+        <LinearLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
+
+            <AutoCompleteTextView
+                android:id="@+id/cityAutoCompleteTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="@string/search_bar_text"
+                android:layout_weight="1" />
+
+            <!--   <ImageView
+                   android:id="@+id/searchButton"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   style="@style/Widget.AppCompat.ActionButton"
+                   android:layout_margin="5dp"
+                   android:layout_weight="0.2"
+                   android:src="@drawable/ic_baseline_search_24"/> !-->
+
+        </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/weatherInfoMainLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/searchLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="1"
-                android:layout_marginTop="50dp"
-                android:orientation="horizontal">
-
-                <AutoCompleteTextView
-                    android:id="@+id/cityAutoCompleteTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:ems="10"
-                    android:layout_weight="0.8" />
-
-                <ImageView
-                    android:id="@+id/searchButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.AppCompat.ActionButton"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.2"
-                    android:src="@drawable/ic_baseline_search_24"/>
-
-            </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_below="@+id/searchLayout"
+            android:visibility="@{weatherInfoViewModel.isErrorOccuredMutableLiveData() ? View.GONE : View.VISIBLE}">
 
             <RelativeLayout
                 android:id="@+id/weatherInfoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/searchLayout"
                 android:layout_marginTop="15dp"
                 android:layout_margin="5dp">
 
@@ -180,13 +182,14 @@
             android:id="@+id/errorLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:visibility="@{weatherInfoViewModel.isErrorOccuredMutableLiveData() ? View.VISIBLE : View.GONE}">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No Data Available"
-                android:textSize="20sp"/>
+                android:layout_centerInParent="true"
+                android:text="@{!weatherInfoViewModel.isDataAvailableMutableLiveData() ? @string/no_data : @string/error_occured}"
+                android:textSize="14sp"/>
 
         </RelativeLayout>
 

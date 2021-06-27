@@ -10,8 +10,13 @@ import kotlin.collections.ArrayList
 
 class WeatherInfoUseCase {
 
-    suspend fun getCurrentWeatherByCity(city: String) : Weather?{
-        var weatherRepo : IWeatherRepo = OpenWeatherRepoImpl()
+    suspend fun getCurrentWeatherByCity(city: String, isNetworkAvailable: Boolean) : Weather?{
+        var weatherRepo : IWeatherRepo
+        weatherRepo = if(isNetworkAvailable){
+            OpenWeatherRepoImpl()
+        }else{
+            FirestoreWeatherRepoImpl()
+        }
         var weather = weatherRepo.getCurrentWeatherByCity(city).await()
         weather?.apply {
             weatherRepo = FirestoreWeatherRepoImpl()
@@ -45,6 +50,4 @@ class WeatherInfoUseCase {
         val cityList = firestoreRepo.getAllCities().await()
         return cityList
     }
-
-
 }

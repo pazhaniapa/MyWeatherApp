@@ -23,21 +23,29 @@ class WeatherInfoViewModel(application: Application) : AndroidViewModel(applicat
 
     var weatherMutableLiveData : MutableLiveData<Weather> = MutableLiveData<Weather>()
     var cityListMutableLiveData : MutableLiveData<ArrayList<String>> = MutableLiveData<ArrayList<String>>()
+    var isErrorOccuredMutableLiveData : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+    var isDataAvailableMutableLiveData : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     val androidApplication = application
 
     init {
         weatherInfoUseCase = WeatherInfoUseCase()
+        isErrorOccuredMutableLiveData.postValue(true)
     }
 
-    fun getCurrentWeatherByCity(city : String){
+    fun getCurrentWeatherByCity(city : String, isNetworkAvailable : Boolean){
         viewModelScope.launch {
-            val currentWeatherInfo = weatherInfoUseCase?.getCurrentWeatherByCity(city)
+            val currentWeatherInfo = weatherInfoUseCase?.getCurrentWeatherByCity(city,isNetworkAvailable)
             currentWeatherInfo?.let {
                 formatWeatherObject(currentWeatherInfo).let {
                     Log.d(TAG,"Current Weather Info: $currentWeatherInfo")
                     weatherMutableLiveData.postValue(it)
-
+                    isErrorOccuredMutableLiveData.postValue(false)
+                    isDataAvailableMutableLiveData.postValue(true)
                 }
+            }
+            if(currentWeatherInfo == null){
+                isErrorOccuredMutableLiveData.postValue(true)
+                isDataAvailableMutableLiveData.postValue(false)
             }
         }
     }

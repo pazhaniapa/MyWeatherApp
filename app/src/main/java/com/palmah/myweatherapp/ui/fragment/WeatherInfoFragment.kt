@@ -1,6 +1,7 @@
 package com.palmah.myweatherapp.ui.fragment
 
 import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.palmah.myweatherapp.R
 import com.palmah.myweatherapp.databinding.FragmentWeatherInfoBinding
 import com.palmah.myweatherapp.entity.Weather
 import com.palmah.myweatherapp.ui.adapter.WeatherDetailsListAdapter
+import com.palmah.myweatherapp.utility.AndroidUtility
 import com.palmah.myweatherapp.utility.Constants.TAG
 import com.palmah.myweatherapp.utility.Constants.WEATHER_DATA
 import com.palmah.myweatherapp.utility.WeatherUtility
@@ -80,9 +82,9 @@ class WeatherInfoFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.weatherInfoViewModel = viewModel
 
-        binding.searchButton.setOnClickListener {
+        /*binding.searchButton.setOnClickListener {
             getCurrentWeatherByCity(binding.cityAutoCompleteTextView.text.toString())
-        }
+        }*/
 
         binding.favoriteButton.setOnClickListener {
             handleAddToFavorites()
@@ -96,15 +98,18 @@ class WeatherInfoFragment : Fragment() {
             }
         }
         weather?.apply {
+            binding.cityAutoCompleteTextView.visibility = View.GONE
             weather = WeatherUtility.formatWeatherObject(this,requireActivity().application)
             viewModel.weatherMutableLiveData.postValue(weather)
+            viewModel.isDataAvailableMutableLiveData.postValue(true)
+            viewModel.isErrorOccuredMutableLiveData.postValue(false)
         }
         observerWeatherData()
         getAllCities()
     }
 
     private fun getCurrentWeatherByCity(cityName: String){
-        viewModel.getCurrentWeatherByCity(cityName)
+        viewModel.getCurrentWeatherByCity(cityName,AndroidUtility.isNetworkAvailable(requireContext()))
     }
 
     private fun observerWeatherData(){

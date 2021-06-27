@@ -24,4 +24,8 @@
     <string name="details_wind_speed">%1$s km/h</string>
     <string name="city_info">%1$s, %2$s</string>
 
+    <string name="search_bar_text">Enter city name</string>
+    <string name="no_data">No Data Available</string>
+    <string name="error_occured">Error Occured</string>
+
 </resources>
