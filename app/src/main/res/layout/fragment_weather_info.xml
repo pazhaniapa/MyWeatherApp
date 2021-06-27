@@ -99,7 +99,8 @@
                     android:id="@+id/favoriteButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_star_border_48"
+                    style="@style/Widget.AppCompat.ActionButton"
+                    android:src="@{weatherInfoViewModel.weatherMutableLiveData.favorite ?  @drawable/ic_baseline_star_48 :@drawable/ic_baseline_star_border_48}"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"/>
 

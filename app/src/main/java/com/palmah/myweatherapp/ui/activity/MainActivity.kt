@@ -1,5 +1,6 @@
  package com.palmah.myweatherapp.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -30,8 +31,9 @@ import com.palmah.myweatherapp.ui.fragment.WeatherInfoFragment
             .commitNow()
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+           Intent(this,FavoritesActivity::class.java).let {
+               startActivity(it)
+           }
         }
     }
 

@@ -13,8 +13,13 @@ class WeatherInfoUseCase {
     suspend fun getCurrentWeatherByCity(city: String) : Weather?{
         var weatherRepo : IWeatherRepo = OpenWeatherRepoImpl()
         var weather = weatherRepo.getCurrentWeatherByCity(city).await()
-        weather?.let {
-            saveWeatherInfoInFirestore(it)
+        weather?.apply {
+            weatherRepo = FirestoreWeatherRepoImpl()
+            var weatherFromCache = weatherRepo.getCurrentWeatherByCity(city).await()
+            weatherFromCache?.let { cachedWeather->
+                this.favorite = cachedWeather.favorite
+            }
+            saveWeatherInfoInFirestore(this)
         }
         if(weather == null){
             weatherRepo = FirestoreWeatherRepoImpl()

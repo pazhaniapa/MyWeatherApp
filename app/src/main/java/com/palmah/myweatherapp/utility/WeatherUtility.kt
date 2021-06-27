@@ -1,6 +1,8 @@
 package com.palmah.myweatherapp.utility
 
+import android.app.Application
 import android.util.Log
+import com.palmah.myweatherapp.R
 import com.palmah.myweatherapp.entity.Weather
 import com.palmah.myweatherapp.utility.Constants.TAG
 import com.palmah.myweatherapp.utility.OpenWeatherConstants.COUNTRY
@@ -20,6 +22,10 @@ import com.palmah.myweatherapp.utility.OpenWeatherConstants.WIND
 import com.palmah.myweatherapp.utility.OpenWeatherConstants.WIND_DEGREE
 import com.palmah.myweatherapp.utility.OpenWeatherConstants.WIND_SPEED
 import org.json.JSONObject
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 object WeatherUtility {
 
@@ -53,5 +59,47 @@ object WeatherUtility {
             Log.e(TAG,e.toString())
             return null
         }
+    }
+
+    fun formatWeatherObject(weather : Weather, androidApplication : Application) : Weather{
+        //format time
+        val sdf = SimpleDateFormat("dd-MM-yy HH:mm")
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = weather.timeStamp
+        sdf.format(calendar.time).let {
+            weather.formattedTime = it
+        }
+        //format humidity
+        weather.formattedHumidity = weather.humidity.toString().plus("%")
+        //format pressure
+        weather.formattedPressure = String.format(androidApplication.resources.getString(R.string.details_pressure),weather.pressure.toString())
+
+        //format avg temp
+        weather.formattedTemp = Utils.convertToCelcius(weather.temp).let {tempInCelcius->
+            val df = DecimalFormat("#.##")
+            df.roundingMode = RoundingMode.FLOOR
+            String.format(androidApplication.resources.getString(R.string.details_temp),df.format(tempInCelcius).plus(0x00B0.toChar()))
+        }
+        //format min temp
+        weather.formattedMinTemp = Utils.convertToCelcius(weather.minTemp).let {tempInCelcius->
+            val df = DecimalFormat("#.##")
+            df.roundingMode = RoundingMode.FLOOR
+            String.format(androidApplication.resources.getString(R.string.details_temp),df.format(tempInCelcius).plus(0x00B0.toChar()))
+        }
+        //format max temp
+        weather.formattedMaxTemp = Utils.convertToCelcius(weather.maxTemp).let {tempInCelcius->
+            val df = DecimalFormat("#.##")
+            df.roundingMode = RoundingMode.FLOOR
+            String.format(androidApplication.resources.getString(R.string.details_temp),df.format(tempInCelcius).plus(0x00B0.toChar()))
+        }
+        //format Visibility
+        weather.formattedVisibility = Utils.convertToKm(weather.visibility).let {
+            String.format(androidApplication.resources.getString(R.string.details_visibility),it.toString())
+        }
+        //format wind
+        weather.formattedWindSpeed = Utils.convertToKmph(weather.windSpeed).let {
+            String.format(androidApplication.resources.getString(R.string.details_wind_speed),it.toString())
+        }
+        return weather
     }
 }

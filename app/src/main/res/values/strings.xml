@@ -22,5 +22,6 @@
     <string name="details_pressure">%1$s mBar</string>
     <string name="details_visibility">%1$s km</string>
     <string name="details_wind_speed">%1$s km/h</string>
+    <string name="city_info">%1$s, %2$s</string>
 
 </resources>

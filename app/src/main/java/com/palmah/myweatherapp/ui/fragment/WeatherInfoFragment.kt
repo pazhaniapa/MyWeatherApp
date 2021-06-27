@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.palmah.myweatherapp.R
@@ -15,6 +16,8 @@ import com.palmah.myweatherapp.databinding.FragmentWeatherInfoBinding
 import com.palmah.myweatherapp.entity.Weather
 import com.palmah.myweatherapp.ui.adapter.WeatherDetailsListAdapter
 import com.palmah.myweatherapp.utility.Constants.TAG
+import com.palmah.myweatherapp.utility.Constants.WEATHER_DATA
+import com.palmah.myweatherapp.utility.WeatherUtility
 import com.palmah.myweatherapp.viewmodel.WeatherInfoViewModel
 
 /**
@@ -47,6 +50,10 @@ class WeatherInfoFragment : Fragment() {
 
         _binding = FragmentWeatherInfoBinding.inflate(inflater,container,false)
 
+        arguments?.let {
+            weather = it.getParcelable(WEATHER_DATA) as Weather?
+        }
+
         cityListAdapter =
             ArrayAdapter<String>(
                 requireActivity().applicationContext,
@@ -73,26 +80,34 @@ class WeatherInfoFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.weatherInfoViewModel = viewModel
 
-       /* binding.buttonFirst.setOnClickListener {
-            getCurrentWeatherByCity("Madurai")
-        }*/
-
         binding.searchButton.setOnClickListener {
             getCurrentWeatherByCity(binding.cityAutoCompleteTextView.text.toString())
         }
 
-        //getCurrentWeatherByCity("Trichy")
+        binding.favoriteButton.setOnClickListener {
+            handleAddToFavorites()
+        }
 
-        getFavoriteCitiesWeatherInfoList()
-
+        binding.cityAutoCompleteTextView.doAfterTextChanged {
+            it?.let {
+                if(it.toString().length > 0){
+                    getCurrentWeatherByCity(binding.cityAutoCompleteTextView.text.toString())
+                }
+            }
+        }
+        weather?.apply {
+            weather = WeatherUtility.formatWeatherObject(this,requireActivity().application)
+            viewModel.weatherMutableLiveData.postValue(weather)
+        }
+        observerWeatherData()
         getAllCities()
-
-
     }
 
     private fun getCurrentWeatherByCity(cityName: String){
         viewModel.getCurrentWeatherByCity(cityName)
+    }
 
+    private fun observerWeatherData(){
         viewModel.weatherMutableLiveData.observe(this,  Observer {
             Log.d(TAG,"Weather mutable livedata observer called: ${it.toString()}")
             it?.let {
@@ -104,7 +119,6 @@ class WeatherInfoFragment : Fragment() {
 
     private fun getFavoriteCitiesWeatherInfoList(){
         viewModel.getFavoriteCitiesWeatherInfoList()
-
     }
 
     private fun getAllCities(){
@@ -145,24 +159,17 @@ class WeatherInfoFragment : Fragment() {
         weatherDetailsMapList.addAll(weatherDetailsList)
     }
 
-    private fun buildDummyWeatherDetailsListData(){
-        var weatherDetailsList = ArrayList<Map<String,String>>()
-
-        HashMap<String,String>().also {
-            it.put(requireActivity().resources.getString(
-                R.string.label_pressure),"101")
-            weatherDetailsList.add(it)
+    private fun handleAddToFavorites(){
+        viewModel.weatherMutableLiveData.value?.let {
+            var isFavorite = it.favorite
+            it.copy(it.cityName,it.id,it.temp,it.minTemp,it.maxTemp,it.pressure,it.humidity,it.weatherDescription,
+                it.windSpeed,it.windDegree,it.visibility,it.country,it.timeStamp,!isFavorite).let { weatherCopy->
+                    viewModel.saveToFavorites(weatherCopy)
+                    viewModel.formatWeatherObject(weatherCopy).let {
+                        viewModel.weatherMutableLiveData.postValue(it)
+                    }
+            }
         }
-
-        HashMap<String,String>().also {
-            it.put(requireActivity().resources.getString(
-                R.string.label_humidity),"201")
-            weatherDetailsList.add(it)
-        }
-
-        weatherDetailsMapList = weatherDetailsList
-
-
     }
 
     override fun onDestroyView() {
