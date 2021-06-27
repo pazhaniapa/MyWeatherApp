@@ -6,4 +6,6 @@ object Constants {
     val WEATHER_COLLECTION = "Weather"
     val CURRENT_WEATHER_DATA_DOCUMENT = "CurrentWeatherData"
     val CITY_COLLECTION = "City"
+    val WEATHER_DATA = "weatherData"
+    val WEATHER_DATA_BUNDLE = "weatherDataBundle"
 }

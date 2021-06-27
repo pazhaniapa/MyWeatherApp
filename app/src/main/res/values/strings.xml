@@ -9,4 +9,23 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+
+    <string name="temp_unit">C</string>
+    <string name="slash">/</string>
+    <string name="label_pressure">Pressure</string>
+    <string name="label_humidity">Humidity</string>
+    <string name="label_visibility">Visibility</string>
+    <string name="label_wind_speed">Wind Speed</string>
+
+    <string name="details_temp">%1$s C</string>
+    <string name="details_pressure">%1$s mBar</string>
+    <string name="details_visibility">%1$s km</string>
+    <string name="details_wind_speed">%1$s km/h</string>
+    <string name="city_info">%1$s, %2$s</string>
+
+    <string name="search_bar_text">Enter city name</string>
+    <string name="no_data">No Data Available</string>
+    <string name="error_occured">Error Occured</string>
+
 </resources>

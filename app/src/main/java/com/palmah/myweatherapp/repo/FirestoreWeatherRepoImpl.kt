@@ -2,6 +2,7 @@ package com.palmah.myweatherapp.repo
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Source
 import com.palmah.myweatherapp.entity.Weather
 import com.palmah.myweatherapp.utility.Constants.CITY_COLLECTION
 import com.palmah.myweatherapp.utility.Constants.CURRENT_WEATHER_DATA_DOCUMENT
@@ -26,7 +27,7 @@ class FirestoreWeatherRepoImpl : IWeatherRepo {
                 val dbBasePath = firestoreDb.collection(WEATHER_COLLECTION).document(
                     CURRENT_WEATHER_DATA_DOCUMENT)
 
-                dbBasePath.collection(CITY_COLLECTION).document(city).get().addOnSuccessListener {cityWeatherDocumentSnapshot->
+                dbBasePath.collection(CITY_COLLECTION).document(city).get(Source.CACHE).addOnSuccessListener { cityWeatherDocumentSnapshot->
                 val weather = cityWeatherDocumentSnapshot.toObject(Weather::class.java)
                 continuation.resume(weather)
 
