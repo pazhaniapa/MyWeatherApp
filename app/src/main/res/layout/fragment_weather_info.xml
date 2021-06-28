@@ -62,7 +62,7 @@
                         android:layout_margin="2dp"
                         android:textSize="24sp"
                         android:textStyle="bold"
-                        android:text="@{weatherInfoViewModel.weatherMutableLiveData.cityName}"
+                        android:text="@{weatherInfoViewModel.weatherMutableLiveData.formattedCity}"
 
                         />
                     <TextView

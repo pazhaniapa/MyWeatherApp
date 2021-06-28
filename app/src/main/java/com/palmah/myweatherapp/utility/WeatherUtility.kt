@@ -84,7 +84,8 @@ object WeatherUtility {
         weather.formattedHumidity = weather.humidity.toString().plus("%")
         //format pressure
         weather.formattedPressure = String.format(androidApplication.resources.getString(R.string.details_pressure),weather.pressure.toString())
-
+        //format city
+        weather.formattedCity = String.format(androidApplication.resources.getString(R.string.city_info),weather.cityName,weather.country)
         //format avg temp
         weather.formattedTemp = Utils.convertToCelcius(weather.temp).let {tempInCelcius->
             val df = DecimalFormat("#.##")
