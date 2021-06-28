@@ -27,5 +27,7 @@ data class Weather(val cityName: String, val id:Int, val temp: Double, val minTe
     var formattedMaxTemp : String = ""
     @get:Exclude
     var formattedVisibility : String = ""
+    @get:Exclude
+    var formattedCity : String = ""
 
 }
